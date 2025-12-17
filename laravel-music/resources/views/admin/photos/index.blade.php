@@ -12,14 +12,16 @@
             </div>
         @endif
 
-        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.photos.store') }}" class="mb-6">
-            @csrf
-            <div class="flex gap-2">
-                <input type="text" name="title" placeholder="Title (optional)" class="border p-2 flex-1">
-                <input type="file" name="photo" class="border p-2">
-                <button class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
-            </div>
-        </form>
+        @can('create', App\Models\Photo::class)
+            <form method="POST" enctype="multipart/form-data" action="{{ route('admin.photos.store') }}" class="mb-6">
+                @csrf
+                <div class="flex gap-2">
+                    <input type="text" name="title" placeholder="Title (optional)" class="border p-2 flex-1">
+                    <input type="file" name="photo" class="border p-2">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
+                </div>
+            </form>
+        @endcan
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @foreach($photos as $photo)
@@ -33,13 +35,17 @@
                     </div>
 
                     <div class="flex justify-between p-2">
-                        <a href="{{ route('admin.photos.edit', $photo) }}" class="text-blue-600">Edit</a>
+                        @can('update', $photo)
+                            <a href="{{ route('admin.photos.edit', $photo) }}" class="text-blue-600">Edit</a>
+                        @endcan
 
-                        <form method="POST" action="{{ route('admin.photos.destroy', $photo) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="text-red-600">Delete</button>
-                        </form>
+                        @can('delete', $photo)
+                            <form method="POST" action="{{ route('admin.photos.destroy', $photo) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-600">Delete</button>
+                            </form>
+                        @endcan
                     </div>
                 </div>
             @endforeach

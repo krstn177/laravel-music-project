@@ -15,6 +15,10 @@ class AlbumController extends Controller
         // eager-load related photo, artists and genres to avoid N+1
         $query = Album::with(['photo', 'artists', 'genres']);
 
+        if (!auth()->user()->is_admin) {
+            $query->where('user_id', auth()->id());
+        }
+
         if ($request->filled('search')) {
             $query->where('title', 'like', "%{$request->search}%");
         }
@@ -55,19 +59,21 @@ class AlbumController extends Controller
             'genre_ids' => 'nullable|array',
             'genre_ids.*' => 'exists:genres,id',
         ]);
+        $data['user_id'] = auth()->id();
 
         $album = Album::create($data);
         // attach selected artists (empty array will detach all)
-        $album->artists()->sync($data['artist_ids'] ?? []);
+        $album->artists()->sync($request->input('artist_ids', []));
         // attach selected genres
-        $album->genres()->sync($data['genre_ids'] ?? []);
-
+        $album->genres()->sync($request->input('genre_ids', []));
         return redirect()->route('admin.albums.index')
             ->with('success', 'Album created');
     }
 
     public function edit(Album $album)
     {
+        $this->authorize('update', $album);
+
         $photos = Photo::all();
         $artists = Artist::all();
         $genres = Genre::all();
@@ -76,6 +82,8 @@ class AlbumController extends Controller
 
     public function update(Request $request, Album $album)
     {
+        $this->authorize('update', $album);
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'release_date' => 'nullable|date',
@@ -100,6 +108,8 @@ class AlbumController extends Controller
 
     public function destroy(Album $album)
     {
+        $this->authorize('delete', $album);
+
         $album->delete();
 
         return redirect()->route('admin.albums.index')

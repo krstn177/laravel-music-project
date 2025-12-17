@@ -36,18 +36,21 @@ new class extends Component
                     <x-nav-link :href="route('photos.index')" :active="request()->routeIs('photos.*')">
                         📸 {{ __('Photos') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.photos.index')" :active="request()->routeIs('admin.photos.*')">
-                        🛠 Admin Photos
-                    </x-nav-link>
-                    <x-nav-link :href="route('admin.albums.index')" :active="request()->routeIs('admin.albums.*')">
-                        🎶 Albums
-                    </x-nav-link>
-                    <x-nav-link :href="route('admin.artists.index')" :active="request()->routeIs('admin.artists.*')">
-                        🎤 Artists
-                    </x-nav-link>
-                    <x-nav-link :href="route('admin.genres.index')" :active="request()->routeIs('admin.genres.*')">
-                        🎼 Genres
-                    </x-nav-link>
+
+                    @if(optional(auth()->user())->is_admin)
+                        <x-nav-link :href="route('admin.photos.index')" :active="request()->routeIs('admin.photos.*')">
+                            🛠 Admin Photos
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.albums.index')" :active="request()->routeIs('admin.albums.*')">
+                            🎶 Albums
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.artists.index')" :active="request()->routeIs('admin.artists.*')">
+                            🎤 Artists
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.genres.index')" :active="request()->routeIs('admin.genres.*')">
+                            🎼 Genres
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

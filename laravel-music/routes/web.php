@@ -15,17 +15,17 @@ Route::view('dashboard', 'dashboard')
 ->name('dashboard');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/admin/albums', AlbumController::class)
         ->names('admin.albums');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/admin/artists', ArtistController::class)
         ->names('admin.artists');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('/admin/genres', GenreController::class)
         ->names('admin.genres');
 });
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/photos', [PhotoAdminController::class, 'index'])->name('admin.photos.index');
     Route::post('/admin/photos', [PhotoAdminController::class, 'store'])->name('admin.photos.store');
     Route::get('/admin/photos/{photo}/edit', [PhotoAdminController::class, 'edit'])->name('admin.photos.edit');

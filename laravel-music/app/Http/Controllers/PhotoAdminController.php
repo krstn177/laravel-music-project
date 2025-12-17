@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PhotoAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(\App\Models\Photo::class, 'photo');
+    }
     public function index()
     {
         $photos = Photo::latest()->get();

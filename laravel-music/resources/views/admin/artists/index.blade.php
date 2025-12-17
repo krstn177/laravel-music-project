@@ -10,9 +10,11 @@
             .artist-portrait .fallback { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; }
         </style>
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.artists.create') }}" class="bg-blue-600 text-black px-4 py-2 rounded shadow">
-                ➕ Add Artist
-            </a>
+            @can('create', App\Models\Artist::class)
+                <a href="{{ route('admin.artists.create') }}" class="bg-blue-600 text-black px-4 py-2 rounded shadow">
+                    ➕ Add Artist
+                </a>
+            @endcan
 
             <form method="GET" class="flex items-center space-x-2">
                 <input type="text" name="search" placeholder="Search artists..." value="{{ request('search') }}"
@@ -41,13 +43,18 @@
 
                     <div class="flex space-x-2">
                         <a href="{{ route('admin.artists.show', $artist) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded shadow text-sm">View Albums</a>
-                        <a href="{{ route('admin.artists.edit', $artist) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded shadow text-sm">Edit</a>
 
-                        <form method="POST" action="{{ route('admin.artists.destroy', $artist) }}" onsubmit="return confirm('Delete artist?')" class="inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-white bg-opacity-80 text-red-600 px-2 py-1 rounded shadow text-sm">Delete</button>
-                        </form>
+                        @can('update', $artist)
+                            <a href="{{ route('admin.artists.edit', $artist) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded shadow text-sm">Edit</a>
+                        @endcan
+
+                        @can('delete', $artist)
+                            <form method="POST" action="{{ route('admin.artists.destroy', $artist) }}" onsubmit="return confirm('Delete artist?')" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-white bg-opacity-80 text-red-600 px-2 py-1 rounded shadow text-sm">Delete</button>
+                            </form>
+                        @endcan
                     </div>
 
                     <div class="p-4">

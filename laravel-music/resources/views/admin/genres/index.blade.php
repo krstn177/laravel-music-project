@@ -3,7 +3,9 @@
 
     <div class="max-w-6xl mx-auto p-6">
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.genres.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">➕ Add Genre</a>
+            @can('create', App\Models\Genre::class)
+                <a href="{{ route('admin.genres.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">➕ Add Genre</a>
+            @endcan
 
             <form method="GET" class="flex items-center space-x-2">
                 <input type="text" name="search" placeholder="Search genres..." value="{{ request('search') }}" class="border rounded px-3 py-2" />
@@ -20,13 +22,17 @@
                     </div>
 
                     <div class="flex items-center space-x-2">
-                        <a href="{{ route('admin.genres.edit', $genre) }}" class="text-sm bg-white border px-2 py-1 rounded">Edit</a>
+                        @can('update', $genre)
+                            <a href="{{ route('admin.genres.edit', $genre) }}" class="text-sm bg-white border px-2 py-1 rounded">Edit</a>
+                        @endcan
 
-                        <form method="POST" action="{{ route('admin.genres.destroy', $genre) }}" onsubmit="return confirm('Delete genre?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-sm text-red-600 bg-white border px-2 py-1 rounded">Delete</button>
-                        </form>
+                        @can('delete', $genre)
+                            <form method="POST" action="{{ route('admin.genres.destroy', $genre) }}" onsubmit="return confirm('Delete genre?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-sm text-red-600 bg-white border px-2 py-1 rounded">Delete</button>
+                            </form>
+                        @endcan
                     </div>
                 </div>
             @empty

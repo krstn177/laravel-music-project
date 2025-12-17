@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class ArtistController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Artist::class, 'artist');
+    }
     public function index(Request $request)
     {
         // eager-load photo to avoid N+1 when rendering cards
