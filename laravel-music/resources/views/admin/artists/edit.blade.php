@@ -29,7 +29,7 @@
                 @endforeach
             </select>
 
-            <button type="submit" class="bg-gray-600 text-black px-4 py-2 rounded w-full">Save Changes</button>
+            <button type="submit" class="bg-gray-600 text-white px-4 py-2 rounded w-full">Save Changes</button>
         </form>
     </div>
 </x-app-layout>

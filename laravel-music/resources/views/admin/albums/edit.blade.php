@@ -70,7 +70,7 @@
                 @endforeach
             </div>
 
-            <button type="submit" class="bg-green-600 text-black px-4 py-2 rounded w-full">
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded w-full">
                 Save Changes
             </button>
         </form>

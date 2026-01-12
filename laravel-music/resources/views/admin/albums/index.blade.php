@@ -13,7 +13,7 @@
         </style>
 
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.albums.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded">
+            <a href="{{ route('admin.albums.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">
                ➕ Add Album
             </a>
 
@@ -39,7 +39,7 @@
                     @endif
                 </button>
 
-                <button type="submit" class="bg-blue-500 text-black px-3 py-2 rounded">Search</button>
+                <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded">Search</button>
             </form>
 
             <script>

@@ -63,7 +63,7 @@
                 @endforeach
             </div>
 
-            <button type="submit" class="bg-dark text-black px-4 py-2 rounded w-full">
+            <button type="submit" class="bg-gray-500 text-white px-4 py-2 rounded w-full">
                 Create Album
             </button>
         </form>

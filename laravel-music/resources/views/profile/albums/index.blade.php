@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-lg mb-4">Your Albums</h2>
 
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('profile.albums.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded">
+            <a href="{{ route('profile.albums.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">
                ➕ Add Album
             </a>
 
@@ -29,7 +29,7 @@
                     @endif
                 </button>
 
-                <button type="submit" class="bg-blue-500 text-black px-3 py-2 rounded">Search</button>
+                <button type="submit" class="bg-blue-500 text-white px-3 py-2 rounded">Search</button>
             </form>
 
             <script>

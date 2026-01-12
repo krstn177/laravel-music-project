@@ -18,7 +18,7 @@
                     @csrf
                     <input type="text" name="title" placeholder="Title (optional)" class="w-full border rounded p-2 mb-2">
                     <input type="file" name="photo" accept="image/*" class="w-full border rounded p-2 mb-2">
-                    <button class="bg-blue-500 text-black px-4 py-2 rounded">Upload</button>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
                 </form>
 
                 <div class="grid grid-cols-2 gap-4">
