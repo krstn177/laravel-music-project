@@ -18,22 +18,13 @@
                     @csrf
                     <input type="text" name="title" placeholder="Title (optional)" class="w-full border rounded p-2 mb-2">
                     <input type="file" name="photo" accept="image/*" class="w-full border rounded p-2 mb-2">
-                    <button class="bg-blue-500 text-white px-4 py-2 rounded">Upload</button>
+                    <button class="bg-blue-500 text-black px-4 py-2 rounded">Upload</button>
                 </form>
 
                 <div class="grid grid-cols-2 gap-4">
                     @foreach ($photos as $photo)
                         <div class="relative group">
                             <img src="{{ asset('storage/' . $photo->path) }}" class="rounded shadow" alt="Photo">
-
-                            <form method="POST" action="{{ route('photos.destroy', $photo) }}" class="absolute top-2 right-2">
-                                @csrf
-                                @method('DELETE')
-                                <button class="bg-red-500 text-white px-2 py-1 rounded opacity-75 hover:opacity-100">
-                                    ✖
-                                </button>
-                            </form>
-
                             @if($photo->title)
                                 <p class="text-center text-sm mt-1">{{ $photo->title }}</p>
                             @endif

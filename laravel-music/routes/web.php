@@ -6,6 +6,10 @@ use App\Http\Controllers\PhotoAdminController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\ProfileAlbumController;
+use App\Http\Controllers\UserAlbumController;
+use App\Http\Controllers\UserArtistController;
+use App\Http\Controllers\UserGenreController;
 
 
 Route::view('/', 'welcome');
@@ -33,7 +37,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/photos', [PhotoController::class, 'index'])->name('photos.index');
     Route::post('/photos', [PhotoController::class, 'store'])->name('photos.store');
-    Route::delete('/photos/{photo}', [PhotoController::class, 'destroy'])->name('photos.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/albums', [UserAlbumController::class, 'index'])->name('albums.index');
+    Route::get('/artists', [UserArtistController::class, 'index'])->name('artists.index');
+    Route::get('/artists/{artist}', [UserArtistController::class, 'show'])->name('artists.show');
+    Route::get('/genres', [UserGenreController::class, 'index'])->name('genres.index');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -44,8 +54,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/photos/{photo}', [PhotoAdminController::class, 'destroy'])->name('admin.photos.destroy');
 });
 
-Route::view('profile', 'profile')
+Route::get('profile', [ProfileAlbumController::class, 'index'])
     ->middleware(['auth'])
     ->name('profile');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/profile/albums', ProfileAlbumController::class)
+        ->names('profile.albums');
+});
 
 require __DIR__.'/auth.php';

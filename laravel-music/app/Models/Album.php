@@ -15,7 +15,8 @@ class Album extends Model
         'duration',
         'track_count',
         'score',
-        'photo_id'
+        'photo_id',
+        'user_id'
     ];
 
     protected $casts = [

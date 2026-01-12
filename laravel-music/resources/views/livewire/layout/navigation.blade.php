@@ -33,9 +33,21 @@ new class extends Component
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('photos.index')" :active="request()->routeIs('photos.*')">
-                        📸 {{ __('Photos') }}
-                    </x-nav-link>
+                    
+                    @if(!optional(auth()->user())->is_admin)
+                        <x-nav-link :href="route('photos.index')" :active="request()->routeIs('photos.*')">
+                            📸 {{ __('Photos') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('albums.index')" :active="request()->routeIs('albums.*')" wire:navigate>
+                            🎶 {{ __('Albums') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('artists.index')" :active="request()->routeIs('artists.*')" wire:navigate>
+                            🎤 {{ __('Artists') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('genres.index')" :active="request()->routeIs('genres.*')" wire:navigate>
+                            🎼 {{ __('Genres') }}
+                        </x-nav-link>
+                    @endif
 
                     @if(optional(auth()->user())->is_admin)
                         <x-nav-link :href="route('admin.photos.index')" :active="request()->routeIs('admin.photos.*')">
@@ -102,6 +114,21 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            
+            @if(!optional(auth()->user())->is_admin)
+                <x-responsive-nav-link :href="route('photos.index')" :active="request()->routeIs('photos.*')" wire:navigate>
+                    📸 {{ __('Photos') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('albums.index')" :active="request()->routeIs('albums.*')" wire:navigate>
+                    🎶 {{ __('Albums') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('artists.index')" :active="request()->routeIs('artists.*')" wire:navigate>
+                    🎤 {{ __('Artists') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('genres.index')" :active="request()->routeIs('genres.*')" wire:navigate>
+                    🎼 {{ __('Genres') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

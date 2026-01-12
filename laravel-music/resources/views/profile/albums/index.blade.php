@@ -1,19 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        🎵 Albums
-    </x-slot>
-
-    <div class="max-w-6xl mx-auto p-6">
-
-        <style>
-            .album-portrait { position: relative; width: 100%; padding-top: 100%; overflow: hidden; }
-            .album-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-            .album-portrait .fallback { position: absolute; inset: 0; display:flex; align-items:center; justify-content:center; }
-            .album-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
-        </style>
+<div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="font-semibold text-lg mb-4">Your Albums</h2>
 
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.albums.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded">
+            <a href="{{ route('profile.albums.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded">
                ➕ Add Album
             </a>
 
@@ -57,14 +47,14 @@
             </script>
         </div>
 
-        <div class="album-grid">
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             @forelse($albums as $album)
                 <div class="bg-white rounded shadow overflow-hidden">
-                    <div class="album-portrait bg-gray-100">
+                    <div class="album-portrait bg-gray-100" style="position:relative;width:100%;padding-top:100%;overflow:hidden;">
                         @if($album->photo && $album->photo->path)
-                            <img src="{{ asset('storage/' . $album->photo->path) }}" alt="{{ $album->title }}">
+                            <img src="{{ asset('storage/' . $album->photo->path) }}" alt="{{ $album->title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                         @else
-                            <div class="fallback text-gray-400">
+                            <div class="fallback text-gray-400" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
                                 <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                           d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7M7 7a5 5 0 0110 0M7 7v.01M17 7v.01"/>
@@ -73,8 +63,8 @@
                         @endif
 
                         <div class="absolute top-2 right-2 flex space-x-2">
-                            <a href="{{ route('admin.albums.edit', $album) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded text-sm">Edit</a>
-                            <form method="POST" action="{{ route('admin.albums.destroy', $album) }}" class="inline" onsubmit="return confirm('Delete album?')">
+                            <a href="{{ route('profile.albums.edit', $album) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded text-sm">Edit</a>
+                            <form method="POST" action="{{ route('profile.albums.destroy', $album) }}" class="inline" onsubmit="return confirm('Delete album?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-white bg-opacity-80 text-red-600 px-2 py-1 rounded text-sm">Delete</button>
@@ -112,10 +102,10 @@
                             @endif
                         </div>
 
-                        <div class="flex items-center space-x-2">
-                        <a href="{{ route('admin.albums.edit', $album) }}" class="text-sm bg-white border px-2 py-1 rounded">Edit</a>
+                        <div class="flex items-center space-x-2 mt-3">
+                        <a href="{{ route('profile.albums.edit', $album) }}" class="text-sm bg-white border px-2 py-1 rounded">Edit</a>
 
-                        <form method="POST" action="{{ route('admin.albums.destroy', $album) }}" onsubmit="return confirm('Delete album?')">
+                        <form method="POST" action="{{ route('profile.albums.destroy', $album) }}" onsubmit="return confirm('Delete album?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="text-sm text-red-600 bg-white border px-2 py-1 rounded">Delete</button>
@@ -129,6 +119,5 @@
         </div>
 
         <div class="mt-6">{{ $albums->links() }}</div>
-
     </div>
-</x-app-layout>
+</div>

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        🎵 Albums
+        Albums
     </x-slot>
 
     <div class="max-w-6xl mx-auto p-6">
@@ -13,9 +13,7 @@
         </style>
 
         <div class="flex justify-between items-center mb-6">
-            <a href="{{ route('admin.albums.create') }}" class="bg-blue-500 text-black px-4 py-2 rounded">
-               ➕ Add Album
-            </a>
+            <div></div>
 
             <form method="GET" id="albumFilterForm" class="flex items-center space-x-2">
                 <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}" class="border p-2 rounded">
@@ -71,22 +69,13 @@
                                 </svg>
                             </div>
                         @endif
-
-                        <div class="absolute top-2 right-2 flex space-x-2">
-                            <a href="{{ route('admin.albums.edit', $album) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded text-sm">Edit</a>
-                            <form method="POST" action="{{ route('admin.albums.destroy', $album) }}" class="inline" onsubmit="return confirm('Delete album?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-white bg-opacity-80 text-red-600 px-2 py-1 rounded text-sm">Delete</button>
-                            </form>
-                        </div>
                     </div>
 
-                    <div class="p-4">
+                    <div class="p-4 space-y-2">
                         <h3 class="text-lg font-semibold text-gray-900">{{ $album->title }}</h3>
-                        <p class="text-sm text-gray-500 mb-2">{{ optional($album->release_date)->format('Y-m-d') ?? '—' }}</p>
+                        <p class="text-sm text-gray-500">{{ optional($album->release_date)->format('Y-m-d') ?? '—' }}</p>
 
-                        <div class="text-sm text-gray-700 mb-2">
+                        <div class="text-sm text-gray-700">
                             <strong>Tracks:</strong> {{ $album->track_count ?? '—' }}
                             &nbsp;•&nbsp;
                             <strong>Duration:</strong> {{ $album->duration ? gmdate('H:i:s', $album->duration) : '—' }}
@@ -94,7 +83,7 @@
                             <strong>Score:</strong> {{ $album->score ?? '—' }}
                         </div>
 
-                        <div class="text-sm text-gray-700 mb-2">
+                        <div class="text-sm text-gray-700">
                             <strong>Artists:</strong>
                             @if($album->artists && $album->artists->count())
                                 {{ $album->artists->pluck('name')->join(', ') }}
@@ -111,16 +100,6 @@
                                 —
                             @endif
                         </div>
-
-                        <div class="flex items-center space-x-2">
-                        <a href="{{ route('admin.albums.edit', $album) }}" class="text-sm bg-white border px-2 py-1 rounded">Edit</a>
-
-                        <form method="POST" action="{{ route('admin.albums.destroy', $album) }}" onsubmit="return confirm('Delete album?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-sm text-red-600 bg-white border px-2 py-1 rounded">Delete</button>
-                        </form>
-                    </div>
                     </div>
                 </div>
             @empty
