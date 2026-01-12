@@ -71,15 +71,6 @@
                                 </svg>
                             </div>
                         @endif
-
-                        <div class="absolute top-2 right-2 flex space-x-2">
-                            <a href="{{ route('admin.albums.edit', $album) }}" class="bg-white bg-opacity-80 text-gray-800 px-2 py-1 rounded text-sm">Edit</a>
-                            <form method="POST" action="{{ route('admin.albums.destroy', $album) }}" class="inline" onsubmit="return confirm('Delete album?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="bg-white bg-opacity-80 text-red-600 px-2 py-1 rounded text-sm">Delete</button>
-                            </form>
-                        </div>
                     </div>
 
                     <div class="p-4">
