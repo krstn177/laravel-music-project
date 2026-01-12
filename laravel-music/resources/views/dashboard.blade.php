@@ -68,6 +68,12 @@
                                     <h4 class="font-semibold text-lg">Manage Genres</h4>
                                     <p class="text-sm text-gray-600">Admin genres</p>
                                 </a>
+
+                                <a href="{{ route('admin.users.index') }}" class="p-4 bg-purple-50 rounded-lg border-2 border-purple-200 hover:border-purple-500 transition">
+                                    <div class="text-2xl mb-2">👥</div>
+                                    <h4 class="font-semibold text-lg">Manage Users</h4>
+                                    <p class="text-sm text-gray-600">Admin users & roles</p>
+                                </a>
                             </div>
                         </div>
                     @endif

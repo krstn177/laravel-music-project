@@ -54,6 +54,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/photos/{photo}', [PhotoAdminController::class, 'destroy'])->name('admin.photos.destroy');
 });
 
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'index'])->name('admin.users.index');
+    Route::patch('/admin/users/{user}/admin-status', [App\Http\Controllers\UserController::class, 'updateAdminStatus'])->name('admin.users.updateAdminStatus');
+    Route::delete('/admin/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('admin.users.destroy');
+});
+
 Route::get('profile', [ProfileAlbumController::class, 'index'])
     ->middleware(['auth'])
     ->name('profile');
